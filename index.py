@@ -47,17 +47,23 @@ class Speaker:
         return new_basename[:50] + extension
 
     def save(self, text_to_speak):
-        clip_filename = self.get_secure_file_name(
-            text_to_speak + '.' + self.clip_extension)
+
+        if not text_to_speak:
+            return False
+
+        clip_filename = os.path.join(
+            self.current_folder, self.get_secure_file_name(
+                text_to_speak + '.' + self.clip_extension))
+
         clip = self.get_clip(text_to_speak)
+
         if clip:
             try:
-                with open(os.path.join(self.current_folder, clip_filename), 'wb') as f:
-                    print('Saving in file: ', os.path.join(
-                        self.current_folder, clip_filename))
+                with open(clip_filename, 'wb') as f:
+                    print(f"Saving in file: {clip_filename}")
                     f.write(clip)
             except Exception as e:
-                print(f"Cannot write file: {clip_filename} -- ({e})")
+                print(f"ERROR: Cannot write: {clip_filename} -- ({e})")
         else:
             print('ERROR: Nothing to save in file. Try again later.')
 
