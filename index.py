@@ -20,12 +20,12 @@ class Speaker:
         self.clip_extension = clip_extension
         self.language = language.lower()
 
-    def set_current_folder(self, current_folder):
+    def set_folder(self, current_folder):
         if not os.path.exists(current_folder):
             os.makedirs(current_folder)
         self.current_folder = current_folder
 
-    def set_current_language(self, language):
+    def set_language(self, language):
         self.language = language.lower()
 
     def get_clip(self, text_to_speak):
@@ -66,13 +66,13 @@ if __name__ == "__main__":
 
     speaker = Speaker()
 
-    speaker.set_current_language('en')  # en is default
+    speaker.set_language('en')  # en is default
     # folder will be created if doesnt exists
-    speaker.set_current_folder("clips/en")
+    speaker.set_folder("clips/en")
     speaker.save("What's your name?")
     speaker.save("I'm going to Honolulu tomorrow.")
 
-    speaker.set_current_language('es')
-    speaker.set_current_folder("clips/es")
+    speaker.set_language('es')
+    speaker.set_folder("clips/es")
     speaker.save('¿A dónde vas?')
     speaker.save('Estoy buscando un restaurante con cuatro gatos.')
